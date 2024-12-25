@@ -1,17 +1,17 @@
 import { useState } from "react";
 import ProfileHeader from "./ProfileHeader";
 import ProfileBio from "./ProfileBio";
-import ProfileTabs from "./ProfileTabs";
 import { useSearchParams } from "react-router-dom";
 import UserPost from "./UserPost";
 import LikedPosts from "./LikedPosts";
 import { IProfileTabs } from "../../constants/types";
 import { Grid, Heart } from "lucide-react";
 import FollowerFollowing from "./FollowerFollowing";
+import CustomTabs from "../Common/CustomTabs";
 
 const Profile = () => {
   const [isFollowing, setIsFollowing] = useState(false);
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   // Sample data - will be replaced with Supabase data
   const userProfile = {
@@ -62,7 +62,7 @@ const Profile = () => {
 
           {IProfileTabs.FOLLOWER !== searchParams.get("tab") &&
             IProfileTabs.FOLLOWING !== searchParams.get("tab") && (
-              <ProfileTabs
+              <CustomTabs
                 tabs={[
                   {
                     icon: <Grid className="w-5 h-5" />,
@@ -75,7 +75,13 @@ const Profile = () => {
                     value: IProfileTabs.LIKES,
                   },
                 ]}
-                defaultTab={IProfileTabs.LIKES}
+                activeTab={searchParams.get("tab")}
+                defaultTab={IProfileTabs.POSTS}
+                onTabClick={(tabValue) => {
+                  setSearchParams({
+                    tab: tabValue,
+                  });
+                }}
               />
             )}
 
