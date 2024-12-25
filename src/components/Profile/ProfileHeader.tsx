@@ -1,4 +1,6 @@
 import { Edit } from "lucide-react";
+import { useSearchParams } from "react-router-dom";
+import { IProfileTabs } from "../../constants/types";
 
 interface ProfileHeaderProps {
   username: string;
@@ -19,6 +21,7 @@ const ProfileHeader = ({
   isFollowing = false,
   onFollowToggle,
 }: ProfileHeaderProps) => {
+  const [, setSearchParams] = useSearchParams();
   return (
     <div className="bg-white p-6 rounded-lg shadow-sm flex justify-between">
       <div className="flex items-center space-x-8">
@@ -44,16 +47,37 @@ const ProfileHeader = ({
           </div>
 
           <div className="flex space-x-8">
-            <div className="text-center">
-              <div className="font-semibold">{postsCount}</div>
+            <div
+              className="text-center cursor-pointer"
+              onClick={() => {
+                setSearchParams({
+                  tab: IProfileTabs.POSTS,
+                });
+              }}
+            >
+              <div className="text-gray-500">{postsCount}</div>
               <div className="text-gray-500">posts</div>
             </div>
-            <div className="text-center">
+            <div
+              className="text-center cursor-pointer"
+              onClick={() => {
+                setSearchParams({
+                  tab: IProfileTabs.FOLLOWER,
+                });
+              }}
+            >
               <div className="font-semibold">{followersCount}</div>
-              <div className="text-gray-500">followers</div>
+              <div className="text-gray-500 cursor-pointer">followers</div>
             </div>
-            <div className="text-center">
-              <div className="font-semibold">{followingCount}</div>
+            <div
+              className="text-center cursor-pointer"
+              onClick={() => {
+                setSearchParams({
+                  tab: IProfileTabs.FOLLOWING,
+                });
+              }}
+            >
+              <div className="text-gray-500 ">{followingCount}</div>
               <div className="text-gray-500">following</div>
             </div>
           </div>

@@ -6,6 +6,8 @@ import { useSearchParams } from "react-router-dom";
 import UserPost from "./UserPost";
 import LikedPosts from "./LikedPosts";
 import { IProfileTabs } from "../../constants/types";
+import { Grid, Heart } from "lucide-react";
+import FollowerFollowing from "./FollowerFollowing";
 
 const Profile = () => {
   const [isFollowing, setIsFollowing] = useState(false);
@@ -58,14 +60,59 @@ const Profile = () => {
             </div> */}
           </div>
 
-          <ProfileTabs />
+          {IProfileTabs.FOLLOWER !== searchParams.get("tab") &&
+            IProfileTabs.FOLLOWING !== searchParams.get("tab") && (
+              <ProfileTabs
+                tabs={[
+                  {
+                    icon: <Grid className="w-5 h-5" />,
+                    name: "Posts",
+                    value: IProfileTabs.POSTS,
+                  },
+                  {
+                    icon: <Heart className="w-5 h-5" />,
+                    name: "Likes",
+                    value: IProfileTabs.LIKES,
+                  },
+                ]}
+                defaultTab={IProfileTabs.LIKES}
+              />
+            )}
+
+          {(IProfileTabs.FOLLOWER === searchParams.get("tab") ||
+            IProfileTabs.FOLLOWING === searchParams.get("tab")) && (
+            <ProfileTabs
+              tabs={[
+                {
+                  icon: null,
+                  name: "Followers",
+                  value: IProfileTabs.FOLLOWER,
+                },
+                {
+                  icon: null,
+                  name: "Followings",
+                  value: IProfileTabs.FOLLOWING,
+                },
+              ]}
+              defaultTab=""
+            />
+          )}
 
           <div className="mt-4">
-            {searchParams.get("tab") === IProfileTabs.LIKES ? (
-              <LikedPosts />
-            ) : (
-              <UserPost />
-            )}
+            {(() => {
+              switch (searchParams.get("tab")) {
+                case IProfileTabs.POSTS:
+                  return <UserPost />;
+                case IProfileTabs.LIKES:
+                  return <LikedPosts />;
+                case IProfileTabs.FOLLOWER:
+                  return <FollowerFollowing type="followers" />;
+                case IProfileTabs.FOLLOWING:
+                  return <FollowerFollowing type="following" />;
+                default:
+                  return <UserPost />;
+              }
+            })()}
           </div>
         </div>
       </div>
