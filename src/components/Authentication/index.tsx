@@ -28,7 +28,7 @@ const Authentication: React.FC = () => {
           ></div>
         </div>
         {/* right side / form area*/}
-        <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12">
+        <div className="lg:w-1/2 xl:w-5/12 p-6 sm:p-12 flex flex-col justify-center">
           <div>
             <img src={TakJhakLogo} className="w-80 h-24 mx-auto" />
           </div>

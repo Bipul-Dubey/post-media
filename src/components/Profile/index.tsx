@@ -79,25 +79,6 @@ const Profile = () => {
               />
             )}
 
-          {(IProfileTabs.FOLLOWER === searchParams.get("tab") ||
-            IProfileTabs.FOLLOWING === searchParams.get("tab")) && (
-            <ProfileTabs
-              tabs={[
-                {
-                  icon: null,
-                  name: "Followers",
-                  value: IProfileTabs.FOLLOWER,
-                },
-                {
-                  icon: null,
-                  name: "Followings",
-                  value: IProfileTabs.FOLLOWING,
-                },
-              ]}
-              defaultTab=""
-            />
-          )}
-
           <div className="mt-4">
             {(() => {
               switch (searchParams.get("tab")) {

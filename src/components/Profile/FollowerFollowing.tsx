@@ -42,7 +42,7 @@ const FollowerFollowingList: React.FC<FollowerFollowingListProps> = ({
   ];
 
   return (
-    <div className=" p-4">
+    <div className="border-t p-4">
       <h2 className="text-lg font-semibold mb-4 capitalize">
         {type === "followers" ? "Followers" : "Following"}
       </h2>
